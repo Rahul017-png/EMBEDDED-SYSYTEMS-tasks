@@ -1,0 +1,39 @@
+#include <LiquidCrystal.h>
+
+// LCD pin connections: RS, E, D4, D5, D6, D7
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+const int buttonPin = 8;
+const int ledPin = 9;
+
+int counter = 0;
+bool lastButtonState = LOW;
+bool currentButtonState = LOW;
+
+void setup() {
+  lcd.begin(16, 2); // 16 columns and 2 rows
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  
+  lcd.print("Count: 0");
+  digitalWrite(ledPin, LOW);
+}
+
+void loop() {
+  currentButtonState = digitalRead(buttonPin);
+
+  // Detect rising edge (LOW to HIGH)
+  if (currentButtonState == HIGH && lastButtonState == LOW) {
+    counter++;
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Count: ");
+    lcd.print(counter);
+
+    digitalWrite(ledPin, HIGH);
+    delay(100); // Brief LED ON
+    digitalWrite(ledPin, LOW);
+  }
+
+  lastButtonState = currentButtonState;
+}
