@@ -1,0 +1,33 @@
+//You Cannot Simulate this code
+//Since there is no sound sensor on TINKERCAD yet.
+//the notes on the diagram illustrate the pins of
+//the sound sensor, and where they connect on the
+//breadboard.
+//the code will turn on the LED and turn it back off
+//when the sensor reading is above the threshold
+
+const int ledpin=12; // led is connected to pin 12
+const int soundpin=A2; // sound sensor AO pin is connected to pin A2
+const int threshold=520; // sets threshold value for sound sensor
+
+void setup() 
+{
+  Serial.begin(9600);
+  pinMode(ledpin,OUTPUT);
+  pinMode(soundpin,INPUT);
+}
+
+void loop() 
+{
+	int soundsens=analogRead(soundpin);
+	if (soundsens>=threshold) 
+    	{
+			digitalWrite(ledpin,HIGH); //turns led on
+			Serial.println(soundsens);
+			delay(100);
+		}
+	else
+    	{
+			digitalWrite(ledpin,LOW);
+		}
+}
